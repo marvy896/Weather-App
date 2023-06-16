@@ -1,0 +1,41 @@
+.UI {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  padding: 10px;
+  border: 3px solid blue;
+  border-radius: 10px;
+  background-color: aliceblue;
+}
+.UIHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgb(222, 237, 250);
+    gap: 0.5em;
+    padding: 10px;
+    color: black;
+    align-items: center;
+}
+.UIInner {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content:space-around;
+  gap: 0.45em;
+}
+.UIobjects {
+  display: flex;
+  color: blue;
+  border: 2px solid rgb(187, 198, 251);
+  font-size: 20px;
+  flex-direction: column;
+  border-radius: 10px;
+  padding: 5px;
+  width: 150px;
+}
+.UIobject {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}

@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\onyex\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add --json process@^0.11.10 -D -W
+  C:\Program Files\nodejs\node.exe C:\Users\onyex\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add --dev @types
 
 PATH: 
-  C:\Users\onyex\Documents\Weather-App\node_modules\.bin;C:\Users\onyex\Documents\node_modules\.bin;C:\Users\onyex\node_modules\.bin;C:\Users\node_modules\.bin;C:\node_modules\.bin;C:\Users\onyex\AppData\Roaming\npm\node_modules\npm\node_modules\@npmcli\run-script\lib\node-gyp-bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\onyex\bin;C:\Program Files (x86)\VMware\VMware Workstation\bin;C:\Python311\Scripts;C:\Python311;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\HashiCorp\Vagrant\bin;C:\Users\onyex\AppData\Local\Microsoft\WindowsApps;C:\Users\onyex\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\onyex\AppData\Roaming\npm
+  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\onyex\bin;C:\Program Files (x86)\VMware\VMware Workstation\bin;C:\Python311\Scripts;C:\Python311;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\HashiCorp\Vagrant\bin;C:\Users\onyex\AppData\Local\Microsoft\WindowsApps;C:\Users\onyex\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\onyex\AppData\Roaming\npm
 
 Yarn version: 
   1.22.19
@@ -14,7 +14,17 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\Users\onyex\Documents\Weather-App\node_modules\@lmdb\lmdb-win32-x64\node.abi108.node'
+  Error: https://registry.yarnpkg.com/@types: Request "https://registry.yarnpkg.com/@types" returned a 405
+      at params.callback [as _callback] (C:\Users\onyex\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66154:18)
+      at self.callback (C:\Users\onyex\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140890:22)
+      at Request.emit (node:events:513:28)
+      at Request.<anonymous> (C:\Users\onyex\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141862:10)
+      at Request.emit (node:events:513:28)
+      at IncomingMessage.<anonymous> (C:\Users\onyex\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141784:12)
+      at Object.onceWrapper (node:events:627:28)
+      at IncomingMessage.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1359:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 
 npm manifest: 
   {
@@ -24,7 +34,7 @@ npm manifest:
     "main": "index.js",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "run":  "parcel src/index.html --open"
+      "run": "parcel src/index.html --open"
     },
     "author": "",
     "license": "ISC",
@@ -34,8 +44,11 @@ npm manifest:
     },
     "devDependencies": {
       "@types/react": "^18.2.12",
-      "@types/react-dom": "^18.2.5"
-    }
+      "@types/react-dom": "^18.2.5",
+      "parcel": "^2.9.2",
+      "process": "^0.11.10"
+    },
+    "keywords": []
   }
 
 yarn manifest: 
@@ -1441,6 +1454,11 @@ Lockfile:
     dependencies:
       posthtml-parser "^0.11.0"
       posthtml-render "^3.0.0"
+  
+  process@^0.11.10:
+    version "0.11.10"
+    resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
+    integrity sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==
   
   react-dom@^18.2.0:
     version "18.2.0"
