@@ -4,15 +4,7 @@ import { Container, Tab, Tabs } from "react-bootstrap";
 
 export default function WeatherPage() {
   let weather = [];
-  // useEffect(() => {
-  //   fetch(
-  //     "https://api.openweathermap.org/data/3.0/onecall?lat=55.06769215821816&lon=-3.6336444687990106&appid=bcd388dba5ae1fd82d622d631f2cff83"
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data1) => {
-  //       console.log(data);
-  //     });
-  // }, []);
+  
 
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
