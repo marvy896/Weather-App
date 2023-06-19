@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import data from "./object.json";
+import mockWeatherData from "./object.json";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import { Grid, Paper, styled } from "@mui/material";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
@@ -20,17 +20,11 @@ import Brightness1Icon from "@mui/icons-material/Brightness1";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
+type WeatherData = typeof mockWeatherData;
+
 export default function WeatherPage() {
-  let weather = [];
-  // useEffect(() => {
-  //   fetch(
-  //     "https://api.openweathermap.org/data/3.0/onecall?lat=55.06769215821816&lon=-3.6336444687990106&appid=bcd388dba5ae1fd82d622d631f2cff83"
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data1) => {
-  //       console.log(data);
-  //     });
-  // }, []);
+  let [data, setData] = useState<WeatherData>();
+
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -61,7 +55,23 @@ export default function WeatherPage() {
 
     fetchLocation();
   }, []);
+  useEffect(() => {
+    if (latitude == null){
+      return
+    }
+    fetch(
+      `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&appid=bcd388dba5ae1fd82d622d631f2cff83`
+    )
+      .then((res) => res.json())
+      .then((data1) => {
+        setData(data1);
+        console.log(data1);
+      });
+  }, [latitude]);
 
+  if (data == undefined){
+    return <div>Loading......</div>
+  }
   let date = new Date(data.current.dt * 1000);
   let DateFormat = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
@@ -74,6 +84,7 @@ export default function WeatherPage() {
       <div className="UIHeader">
         <div className="UIobject">
           <h4>{DateFormat}</h4>
+          <h4>{data.timezone}</h4>
         </div>
         <h1>
           <AcUnitIcon />
