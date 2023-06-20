@@ -24,6 +24,7 @@ type WeatherData = typeof mockWeatherData;
 
 export default function WeatherPage() {
   let [data, setData] = useState<WeatherData>();
+  let [celcius, setCelcius] = useState(true);
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -56,8 +57,8 @@ export default function WeatherPage() {
     fetchLocation();
   }, []);
   useEffect(() => {
-    if (latitude == null){
-      return
+    if (latitude == null) {
+      return;
     }
     fetch(
       `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&appid=bcd388dba5ae1fd82d622d631f2cff83`
@@ -69,21 +70,30 @@ export default function WeatherPage() {
       });
   }, [latitude]);
 
-  if (data == undefined){
-    return <div>Loading......</div>
+  if (data == undefined) {
+    return <div>Loading......</div>;
   }
   let date = new Date(data.current.dt * 1000);
   let DateFormat = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
     hour: "2-digit",
     minute: "2-digit",
-  }).format(date);
+  });
+  let DailyFormat = new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+  });
 
+  let convert = (kelvin: number) => {
+    if (celcius) {
+      let newTemp = kelvin - 273;
+      return Math.round(newTemp);
+    }
+  };
   return (
     <Container className="UI">
       <div className="UIHeader">
         <div className="UIobject">
-          <h4>{DateFormat}</h4>
+          <h4>{DateFormat.format(date)}</h4>
           <h4>{data.timezone}</h4>
         </div>
         <h1>
@@ -151,37 +161,18 @@ export default function WeatherPage() {
           ))}
         </Tab>
         <Tab eventKey="daily" title="Daily">
-          {data.daily.map((key, value) => (
-            <div className="UIInner" key={value}>
-              <Item className="UIobjects">
-                <Brightness6Icon /> Moon Phase <div>{key.moon_phase}</div>
-              </Item>
-              <Item className="UIobjects">
-                <ThunderstormIcon /> Dew Point <div>{key.dew_point}</div>
-              </Item>
-              <Item className="UIobjects">
-                <Brightness1Icon /> Moon Rise <div>{key.moonrise}</div>
-              </Item>
-              <Item className="UIobjects">
-                <DarkModeIcon /> Moon Set <div>{key.moonset}</div>
-              </Item>
-              <Item className="UIobjects">
-                <AirIcon /> Wind Degree <div>{key.wind_deg}</div>
-              </Item>
-              <Item className="UIobjects">
-                <StormIcon /> Wind Gust <div>{key.wind_gust}</div>
-              </Item>
-              <Item className="UIobjects">
-                <Brightness4Icon /> Moon Speed <div>{key.wind_speed}</div>
-              </Item>
-              <Item className="UIobjects">
-                <AirIcon /> Wind Speed <div>{key.moon_phase}</div>
-              </Item>
-              <Item className="UIobjects">
-                <SummarizeIcon /> Summary <div>{key.summary}</div>
-              </Item>
-            </div>
-          ))}
+          <div className="daily">
+            {data.daily.map((key, value) => (
+              <div key={value} className="displayHor">
+                <div>{DailyFormat.format(key.dt * 1000)}</div>
+                <ThermostatIcon />
+                <div className="displayHorInner">
+                  <div>{convert(key.temp.max)}℃</div>
+                  <div>{convert(key.temp.min)}℃</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </Tab>
       </Tabs>
     </Container>
