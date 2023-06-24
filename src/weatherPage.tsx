@@ -19,8 +19,10 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import HourlyData from "./hourlyData";
 
-type WeatherData = typeof mockWeatherData;
+export type WeatherData = typeof mockWeatherData;
+export type hourly = typeof mockWeatherData.hourly;
 
 export default function WeatherPage() {
   let [data, setData] = useState<WeatherData>();
@@ -136,36 +138,18 @@ export default function WeatherPage() {
           </div>
         </Tab>
         <Tab eventKey="hourly" title="Hourly">
-          {data.hourly.map((key, value) => (
-            <div className="UIInner" key={value}>
-              <Item className="UIobjects">
-                <CloudIcon /> Clouds <div>{key.clouds}</div>
-              </Item>
-              <Item className="UIobjects">
-                <ThunderstormIcon /> Dew Point
-                <div>{key.dew_point}</div>
-              </Item>
-              <Item className="UIobjects">
-                {" "}
-                <AllInclusiveIcon /> UVI
-                <div>{key.uvi}</div>
-              </Item>
-              <Item className="UIobjects">
-                <TryIcon /> Pressure <div>{key.pressure}</div>
-              </Item>
-              <Item className="UIobjects">
-                <VisibilityIcon /> Visibility <div>{key.visibility}</div>
-              </Item>
-              <Item className="UIobjects">{key.pop}</Item>
-            </div>
-          ))}
+          <HourlyData hourly={mockWeatherData.hourly} />
         </Tab>
         <Tab eventKey="daily" title="Daily">
           <div className="daily">
             {data.daily.map((key, value) => (
               <div key={value} className="displayHor">
                 <div>{DailyFormat.format(key.dt * 1000)}</div>
-                <ThermostatIcon />
+                {key.weather[0].description == "moderate rain" ? (
+                  <CloudIcon></CloudIcon>
+                ) : (
+                  <ThunderstormIcon />
+                )}
                 <div className="displayHorInner">
                   <div>{convert(key.temp.max)}℃</div>
                   <div>{convert(key.temp.min)}℃</div>

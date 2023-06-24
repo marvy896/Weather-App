@@ -61,3 +61,8 @@
   justify-content: center;
   gap: 1.5em;
 }
+
+.graph {
+  width: auto;
+  height: 300px;
+}
